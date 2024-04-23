@@ -24,7 +24,14 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Proyecto hecho en 
+[Nest](https://github.com/nestjs/nest).
+
+## Previous packages added
+
+```bash
+$ npm install class-validator class-transformer
+```
 
 ## Installation
 
