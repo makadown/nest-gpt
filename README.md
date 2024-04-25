@@ -37,6 +37,10 @@ $ npm install class-validator class-transformer
 $ npm install @nestjs/config
 ```
 
+```bash
+$ npm install --save openai
+```
+
 ## Installation
 
 1. Clone repo

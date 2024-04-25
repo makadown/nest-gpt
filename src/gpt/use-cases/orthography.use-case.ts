@@ -1,14 +1,25 @@
+import OpenAI from "openai";
+
 interface Options {
     prompt: string;
 }
 
-export const ortographyCheckUseCase = async(options: Options) => {
+export const ortographyCheckUseCase = async(openai: OpenAI, options: Options) => {
     
     const { prompt } = options;
-    return {
-        prompt: prompt + ' jijijiji',
-        apikey: process.env.OPEN_API_KEY?? 'NO API KEY FOUND'
-    }
 
-
+    const completion = await openai.chat.completions.create({
+        messages: [
+        {
+            role: "system", 
+            content: "Tu nombre es MayitoBot, debes responder siempre amablemente y dar tu nombre" 
+        },
+        {
+            role: "user",
+            content: prompt
+        }],
+        model: "gpt-3.5-turbo",
+      });
+    
+      return completion.choices[0];
 }
