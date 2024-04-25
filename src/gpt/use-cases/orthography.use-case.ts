@@ -1,8 +1,13 @@
-export const ortographyCheckUseCase = async() => {
-    
+interface Options {
+    prompt: string;
+}
 
+export const ortographyCheckUseCase = async(options: Options) => {
+    
+    const { prompt } = options;
     return {
-        hola: 'Mundo desde orthography check use case'
+        prompt: prompt + ' jijijiji',
+        apikey: process.env.OPEN_API_KEY?? 'NO API KEY FOUND'
     }
 
 

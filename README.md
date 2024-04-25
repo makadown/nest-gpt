@@ -33,13 +33,19 @@ Proyecto hecho en
 $ npm install class-validator class-transformer
 ```
 
+```bash
+$ npm install @nestjs/config
+```
+
 ## Installation
 
+1. Clone repo
+2. Install dependecies
 ```bash
 $ npm install
 ```
-
-## Running the app
+3. Create .env file based on environment variables shown in .env.template
+4. Run the app
 
 ```bash
 # development
@@ -74,6 +80,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 - Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
 - Website - [https://nestjs.com](https://nestjs.com/)
 - Twitter - [@nestframework](https://twitter.com/nestframework)
+- https://platform.openai.com/docs/overview
 
 ## License
 
