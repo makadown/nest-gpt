@@ -26,6 +26,9 @@
 
 Proyecto hecho en 
 [Nest](https://github.com/nestjs/nest).
+como parte de curso del maestro Fernando Herrera
+https://www.udemy.com/course/angular-nest-openai/
+EXCELENTE!
 
 ## Previous packages added
 

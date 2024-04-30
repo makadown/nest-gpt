@@ -36,7 +36,7 @@ export const ortographyCheckUseCase = async(openai: OpenAI, options: Options) =>
             content: prompt
         }],
         // model: "gpt-4",
-        model: "gpt-3.5-turbo-1106",        
+        model: "gpt-3.5-turbo-1106",
         temperature: 0.3,
         max_tokens: 150,
         response_format: { // this one is not supported by gpt-4
