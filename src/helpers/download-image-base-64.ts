@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as sharp from 'sharp';
 
-export const downloadBase64ImageAsPng = async (base64Image: string) => {
+export const downloadBase64ImageAsPng = async (base64Image: string, fullPath: boolean = false) => {
 
     // Remover encabezado
     base64Image = base64Image.split(';base64,').pop();
@@ -20,6 +20,6 @@ export const downloadBase64ImageAsPng = async (base64Image: string) => {
       .ensureAlpha()
       .toFile(path.join(folderPath, imageNamePng));
   
-    return imageNamePng;
+    return fullPath ? path.join(folderPath, imageNamePng) : imageNamePng;
   
   }

@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 import * as fs from 'fs';
 import * as path from 'path';
-import { downloadImageAsPng } from 'src/helpers';
+import { downloadBase64ImageAsPng, downloadImageAsPng } from '../../helpers';
 
 interface Options {
     prompt: string;
@@ -33,9 +33,9 @@ export const ImageGenerationUseCase = async(openai: OpenAI, options: Options) =>
         };
     }
     // i.e. originalImage = http://localhost:3000/gpt/image-generation/1715632069429.png
-    const pngImagePath = await downloadImageAsPng(originalImage);
+    const pngImagePath = await downloadImageAsPng(originalImage, true);
     // i.e. maskImage=Base64:ASDKajsdgfjhsdkfsdkjhfskdjfhksadfsdkj
-    const maskPath = await downloadImageAsPng(maskImage);
+    const maskPath = await downloadBase64ImageAsPng(maskImage, true);
 
     const response = await openai.images.edit({
         model: 'dall-e-2',

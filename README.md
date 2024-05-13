@@ -24,6 +24,10 @@ $ npm install --save openai
 $ npm install sharp
 ```
 
+```bash
+$ npm install body-parser
+```
+
 ## Installation
 
 1. Clone repo
