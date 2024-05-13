@@ -20,6 +20,10 @@ $ npm install @nestjs/config
 $ npm install --save openai
 ```
 
+```bash
+$ npm install sharp
+```
+
 ## Installation
 
 1. Clone repo

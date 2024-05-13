@@ -1,5 +1,6 @@
 import OpenAI from 'openai';
-import { ImageGenerationDto } from '../dtos/image-generation.dto';
+import * as fs from 'fs';
+import * as path from 'path';
 import { downloadImageAsPng } from 'src/helpers';
 
 interface Options {
@@ -11,25 +12,49 @@ interface Options {
 export const ImageGenerationUseCase = async(openai: OpenAI, options: Options) => {
     
     const { prompt, originalImage, maskImage } = options;
-
-    // TODO: Verificar originalImage
     
-    const response = await openai.images.generate({
-        prompt,
-        model: 'dall-e-3',
+    if (!originalImage || !maskImage) {
+        const response = await openai.images.generate({
+            prompt,
+            model: 'dall-e-3',
+            n: 1,
+            size: '1024x1024',
+            quality: 'standard',
+            response_format: 'url',
+        });
+            
+        const fileName =await downloadImageAsPng(response.data[0].url);
+        const url = `${process.env.SERVER_URL}/gpt/image-generation/${fileName}`;
+    
+        return {
+            url: url,
+            openAIUrl: response.data[0].url,
+            revised_prompt: response.data[0].revised_prompt
+        };
+    }
+    // i.e. originalImage = http://localhost:3000/gpt/image-generation/1715632069429.png
+    const pngImagePath = await downloadImageAsPng(originalImage);
+    // i.e. maskImage=Base64:ASDKajsdgfjhsdkfsdkjhfskdjfhksadfsdkj
+    const maskPath = await downloadImageAsPng(maskImage);
+
+    const response = await openai.images.edit({
+        model: 'dall-e-2',
+        prompt: prompt,
+        image: fs.createReadStream(pngImagePath),
+        mask: fs.createReadStream(maskPath),
         n: 1,
         size: '1024x1024',
-        quality: 'standard',
         response_format: 'url',
     });
+    
+    const localImagePath = await downloadImageAsPng(response.data[0].url);
+    const fileName = path.basename(localImagePath);
 
-    // TODO: Guardar imagen en FS
-    await downloadImageAsPng(response.data[0].url);
+    const publicUrl = `${process.env.SERVER_URL}/gpt/image-generation/${fileName}`;
 
     return {
-        url: response.data[0].url,
-        localPath: '',
+        url: publicUrl,
+        openAIUrl: response.data[0].url,
         revised_prompt: response.data[0].revised_prompt
     };
-    
 }
