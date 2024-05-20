@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import OpenAI from 'openai';
-import { createMessageUseCase, createThreadUseCase, createRunUseCase, checkCompleteStatusUseCase } from './use-cases';
+import { createMessageUseCase, createThreadUseCase, createRunUseCase, checkCompleteStatusUseCase, getMessageListUseCase } from './use-cases';
 import { QuestionDto } from './dtos/question.dto';
 
 @Injectable()
@@ -15,7 +15,8 @@ export class AmpyAssistantService {
         const message = await createMessageUseCase(this.openai, { threadId: questionDto.threadId, question: questionDto.question });
         const run = await createRunUseCase(this.openai, { threadId: questionDto.threadId });
         const runStatus = await checkCompleteStatusUseCase(this.openai, { threadId: questionDto.threadId, runId: run.id });
-        return runStatus;
+        const messages = await getMessageListUseCase(this.openai, { threadId: questionDto.threadId });
+        return messages;
     }
 
 }
